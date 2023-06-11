@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK: - UITextFieldDelegate
 extension WeatherViewController: UITextFieldDelegate {
     @IBAction func searchPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
@@ -35,6 +36,7 @@ extension WeatherViewController: UITextFieldDelegate {
     }
 }
 
+//MARK: - WeatherManagerDelegate
 extension WeatherViewController: WeatherManagerDelegate {
     // cannot update UI from background thread (completion handler)
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
@@ -51,7 +53,7 @@ extension WeatherViewController: WeatherManagerDelegate {
     }
 }
 
-
+//MARK: - WeatherViewController
 class WeatherViewController: UIViewController {
     
     @IBOutlet weak var conditionImageView: UIImageView!
