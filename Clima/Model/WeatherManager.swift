@@ -27,13 +27,24 @@ struct WeatherManager {
                 }
                 
                 if let safeData = data {
-                    let dataString = String(data: safeData, encoding: .utf8)
-                    print(dataString)
+                    self.parseJSON(data: safeData)
                 }
             }
             
             // start the task
             task.resume()
+        }
+    }
+    
+    func parseJSON(data: Data) {
+        let decoer = JSONDecoder()
+        // use .self to turn the struct into a type
+        do {
+            // can throw error, must catch
+            let decoded = try decoer.decode(WeatherData.self, from: data)
+            print(decoded.name)
+        } catch {
+            print(error)
         }
     }
 }
