@@ -33,5 +33,14 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         searchTextField.text = ""
     }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if (searchTextField.text != "") {
+            return true
+        } else {
+            searchTextField.placeholder = "Type something"
+            return false
+        }
+    }
 }
 
