@@ -45,7 +45,6 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.temperatureLabel.text = weather.temperatureString
             self.cityLabel.text = weather.cityName
             self.conditionImageView.image = UIImage(systemName: weather.conditionName)
-            print(weather.conditionName)
         }
     }
     
@@ -96,7 +95,9 @@ class WeatherViewController: UIViewController {
     }
     
     @IBAction func locationPressed(_ sender: UIButton) {
+        // if there's no update in locaiton, didUpdateLocations will not get called
+        // so we must stop location updating, before re-request location which will
+        // trigger didUpdateLocations once a location is obtained 
         locationManager.requestLocation()
-    
     }
 }
