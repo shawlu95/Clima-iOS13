@@ -36,7 +36,7 @@ struct WeatherManager {
                 }
                 
                 if let safeData = data {
-                    if let weather = self.parseJSON(data: safeData) {
+                    if let weather = self.parseJSON(safeData) {
                         self.delegate?.didUpdateWeather(self, weather: weather)
                     }
                 }
@@ -47,7 +47,7 @@ struct WeatherManager {
         }
     }
     
-    func parseJSON(data: Data) -> WeatherModel? {
+    func parseJSON(_ data: Data) -> WeatherModel? {
         let decoer = JSONDecoder()
         // use .self to turn the struct into a type
         do {
