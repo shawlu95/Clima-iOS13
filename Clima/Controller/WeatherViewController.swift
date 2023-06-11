@@ -51,10 +51,12 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
     // cannot update UI from background thread (completion handler)
     
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
-        temperatureLabel.text = weather.temperatureString
-        cityLabel.text = weather.cityName
-        conditionImageView.image = UIImage(systemName: weather.conditionName)
-    
+        DispatchQueue.main.async {
+            self.temperatureLabel.text = weather.temperatureString
+            self.cityLabel.text = weather.cityName
+            self.conditionImageView.image = UIImage(systemName: weather.conditionName)
+            print(weather.conditionName)
+        }
     }
     
     func didFailWithError(_ error: Error) {
