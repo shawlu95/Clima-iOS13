@@ -59,9 +59,10 @@ extension WeatherViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // most recent, optional
         if let location = locations.last {
+            manager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
-            print(lat, lon)
+            weatherManager.fetchWeather(latitude: lat, longitude: lon)
         }
     }
     
@@ -92,5 +93,10 @@ class WeatherViewController: UIViewController {
         
         // set delegate before request location
         locationManager.requestLocation()
+    }
+    
+    @IBAction func locationPressed(_ sender: UIButton) {
+        locationManager.requestLocation()
+    
     }
 }
