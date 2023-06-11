@@ -35,21 +35,7 @@ extension WeatherViewController: UITextFieldDelegate {
     }
 }
 
-class WeatherViewController: UIViewController, WeatherManagerDelegate {
-
-    @IBOutlet weak var conditionImageView: UIImageView!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var searchTextField: UITextField!
-    
-    var weatherManager = WeatherManager()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        searchTextField.delegate = self
-        weatherManager.delegate = self
-    }
-
+extension WeatherViewController: WeatherManagerDelegate {
     // cannot update UI from background thread (completion handler)
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
@@ -66,3 +52,18 @@ class WeatherViewController: UIViewController, WeatherManagerDelegate {
 }
 
 
+class WeatherViewController: UIViewController {
+    
+    @IBOutlet weak var conditionImageView: UIImageView!
+    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var searchTextField: UITextField!
+    
+    var weatherManager = WeatherManager()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchTextField.delegate = self
+        weatherManager.delegate = self
+    }
+}
