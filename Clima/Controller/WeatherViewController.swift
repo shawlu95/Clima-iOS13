@@ -54,6 +54,17 @@ extension WeatherViewController: WeatherManagerDelegate {
     }
 }
 
+//MARK: - CLLocationManagerDelegate
+extension WeatherViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("got location data")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+}
+
 //MARK: - WeatherViewController
 class WeatherViewController: UIViewController {
     
@@ -72,5 +83,9 @@ class WeatherViewController: UIViewController {
         
         searchTextField.delegate = self
         weatherManager.delegate = self
+        locationManager.delegate = self
+        
+        // set delegate before request location
+        locationManager.requestLocation()
     }
 }
