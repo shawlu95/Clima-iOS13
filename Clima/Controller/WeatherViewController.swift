@@ -8,21 +8,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate {
-
-    @IBOutlet weak var conditionImageView: UIImageView!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var searchTextField: UITextField!
-    
-    var weatherManager = WeatherManager()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        searchTextField.delegate = self
-        weatherManager.delegate = self
-    }
-
+extension WeatherViewController: UITextFieldDelegate {
     @IBAction func searchPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
     }
@@ -47,9 +33,24 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
             return false
         }
     }
+}
+
+class WeatherViewController: UIViewController, WeatherManagerDelegate {
+
+    @IBOutlet weak var conditionImageView: UIImageView!
+    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var searchTextField: UITextField!
     
+    var weatherManager = WeatherManager()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchTextField.delegate = self
+        weatherManager.delegate = self
+    }
+
     // cannot update UI from background thread (completion handler)
-    
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
             self.temperatureLabel.text = weather.temperatureString
@@ -63,4 +64,5 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         print(error)
     }
 }
+
 
