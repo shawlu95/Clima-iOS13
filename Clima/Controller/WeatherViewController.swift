@@ -48,8 +48,13 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         }
     }
     
+    // cannot update UI from background thread (completion handler)
+    
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
-        print(weather.cityName, weather.temperatureString, weather.conditionName)
+        temperatureLabel.text = weather.temperatureString
+        cityLabel.text = weather.cityName
+        conditionImageView.image = UIImage(systemName: weather.conditionName)
+    
     }
     
     func didFailWithError(_ error: Error) {
